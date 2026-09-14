@@ -1,5 +1,7 @@
 se utilizó la librería Bootstrap, principalmente para hacer más fácil estilizar las páginas (principalmente cuestiones de rendondear bordes y tener bases para botones y navegadores), entre las herramientas utilizadas, se usó modal para tener una mini pestaña en el buscador de maratones.
 
+Se utilizó poppers, aunque esto fue porque ya estaba en el archivo quue utilicé como plantilla (el cual fue usado como ejemplo en una clase de desarrollo web). Esta librería supuestamente ajusta las posiciones de los elementos de la página que aparecen, pero no podría decirle qué y cuanto modifica exactamente (probablemente el formulario de busqueda.html) debido a que lo mantuve más que nada para no romper nada de lo que venia con el archivo original.
+
 Se utilizó jQuery, librería usada para simplificar ciertos códigos de JavaScript. Entre ellos el traspaso de información entre el archivo HTML y el archivo JavaScript.
 
 

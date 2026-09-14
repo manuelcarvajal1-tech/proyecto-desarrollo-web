@@ -1,11 +1,9 @@
-Este documento de texto se encargará de explicar el objetivo del sistema y otros detalles del proyecto. Para una explicación de los contenidos de JavaScript.js y las librerías utilizadas, lea el archivo explicacion_de_archivo_js
+NOTAS DE ATRASO: Cuando iba a entregar la tarea, me fijé que no lo habia subido aún a la página de amazon. Esto me costó tiempo porque despues de subirlo me fijé que los archivos de JavaScript y CSS no funcionaban, por lo que tuve que buscar el problema, descargarlos localmente, subirlos y arreglar las líneas de código que las llamaban. El cambio entre la versión del proyecto de las 23:59 y cerca de las 1:30 (hora en la que debería estar subiendo esto) es en que en una si están llamandose los archivos correctamente y unos arreglos de texto/base de datos simulada.
+enlace público:http://18.205.12.73
 
+direcciós elastic IP utilizada:18.205.12.73
 
-enlace público:
-
-direcciós elastic IP utilizada:
-
-enlace al repositorio del proyecto:
+enlace al repositorio del proyecto:https://github.com/manuelcarvajal1-tech/proyecto-desarrollo-web
 
 Estudiante: Manuel Jesús Carvajal Garrido
 
@@ -29,3 +27,4 @@ por añadir:
 -Adicionalmente, debería crear una manera de conectarse como un creador de maratones, no estoy nada seguro de qué lógica, de maquina y de funcionamiento, quiero que use. 
 -Tengo que decidir entre un inicio de sesión o correo electrónico de contacto en el formulario para enviar un mensaje al usuario en caso de que se cancele la maratón (tendría que discutir con el profesor y ayudante para saber si mandar correos sale muy caro para el presupuesto del servidor de Amazon). Además lo que decida tendría que permitir el abandono de una maratón a la que ya se entró.
 -Entre el buscador, debería añadir horas como un filtro, cosa que no he podido terminar por tiempo. Aunque no estoy muy seguro de como es que enfrentaría el problema de hora a la que comienza y horas que se demora en promedio la maratón entera.
+-Debería añadir una cantidad de cupos disponibles (incluso si son por maraton en vez de por cada distancia de estas), también debería crear un filtro que permita buscar maratones que no estén llenas.
