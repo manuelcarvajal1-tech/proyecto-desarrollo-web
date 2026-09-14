@@ -1,0 +1,28 @@
+se utilizó la librería Bootstrap, principalmente para hacer más fácil estilizar las páginas (principalmente cuestiones de rendondear bordes y tener bases para botones y navegadores), entre las herramientas utilizadas, se usó modal para tener una mini pestaña en el buscador de maratones.
+
+Se utilizó poppers, aunque esto fue porque ya estaba en el archivo quue utilicé como plantilla (el cual fue usado como ejemplo en una clase de desarrollo web). Esta librería supuestamente ajusta las posiciones de los elementos de la página que aparecen, pero no podría decirle qué y cuanto modifica exactamente (probablemente el formulario de busqueda.html) debido a que lo mantuve más que nada para no romper nada de lo que venia con el archivo original.
+
+Se utilizó jQuery, librería usada para simplificar ciertos códigos de JavaScript. Entre ellos el traspaso de información entre el archivo HTML y el archivo JavaScript.
+
+
+
+Ahora si, una explicación general de la lógica detrás del archivo:
+
+Inicialmente comienza fácil de entender, creando variables para simular una futura base de datos en el backend.
+
+después empieza la función complicada, anotaré una descripción de cada paso. 
+Las variables después de la base falsa son para conseguir información de los filtros.
+al Comenzar MostrarElementos, se sacan los valores de las variables anteriores.
+Después, se declara el filtrado como tal (const filtered), esto sería el filtrado de elementos reales, si es que el elemento no se relaciona con los filtros pedidos, retornará falso; como adición el filtro de búsqueda y lugar es el mismo y utilizan ciertas funciones para evitar problemas de que "Nombre " sea diferente a "nombre".
+
+listEl.innerHTML = '', es utilizado para hacer posible una actualización después de el filtrado descrito anteriormente. Se entiende como vaciar una variable.
+
+La parte que comienza con "filtered.ForEach" recorrerá la base de datos y creará un elemento (row.innerHTML) de tipo accordion (esto está utilizando bootstrap) que será añadido con appendchild(row). Dentro de esta hay una línea de un botón que se conecta a un modal (también parte de Bootstrap) en la sección del HTML, esto permite tener una parte escondida de la página que solo se abrirá cuando se presione uno de los botones generados en uno de los acordiones.
+
+después de llamar la clase MostrarElementos por primera, se crea un listener que se encargará de llamar la función MostrarElementos cada vez que se cambie una sección del HTML utilizado para los filtros.
+
+Ahora recién comienza la parte del formulario, queremos asegurarnos que cada botón lleve a un formulario que esté conectado a la maratón de la cual pertenecía el botón. esto lo haremos con JQuery.
+$('#modalRegistro') está conectando el código que le continua con el registro modal (razón para el nombre de la id) cuando se hace visible (o sea, cuando se seleccionó una maratón a la cual registrarse).
+La siguiente parte sobre las constantes, primero saca la id del botón que activó el modal, busca la maratón con esa id y registra los atributos de esta que va a usar en el formulario (como nombre y las distancias posibles). Las distancias posibles necesitan código adicional debido a tener multiples valores que se anotarán como un select.
+
+Cuando se continue el código, el nombre que sale en el formulario solo estará como adorno, debido a que el backend seguirá recibiendo la id.

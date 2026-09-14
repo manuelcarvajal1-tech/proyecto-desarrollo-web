@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home — Multi-Page Site</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  </head>
+
+<body>
+  <header>
+<nav class="navbar bg-body-tertiary">
+  <ul>
+  <div class="container-fluid">
+      <li><a href="index.html">inicio</a></li>
+       
+      <li><a href="contacto.html">contacto</a></li>
+
+      <li><a href="busqueda.html">busqueda</a></li>
+  </div>
+  </ul>
+</nav>
+
+</header>
+
+
+     
+    
+    <h1>Encuentre su siguiente camino</h1>
+    <div style="padding: 3rem 1.5rem 6rem;width: 100%;">
+    <input class="search" type="text" placeholder="buscar por ciudad o localización" id="searchInput">
+  </div>
+    
+ <div class="filters">  
+   <div>
+     <label for="placeFilter">Región</label>
+     <select id="placeFilter">
+        <option value="">cualquiera</option>
+        <option>Valparaíso</option>
+        <option>Metropolitana</option>
+        <option>O'Higgins</option>
+        <option>Maule</option>
+        <option>Ñuble</option>
+      </select> 
+   </div>
+
+   <div>
+   <label for="dateFilter">Fecha</label>
+   <input type="text" id="dateFilter" placeholder="Cualquiera">
+   </div>
+   <div>
+  <label>Distancia</label>
+  <div style="display:flex; gap:0.5rem; align-items:left;">
+    <input type="number" id="distanceMin" placeholder="Desde" min="0">
+    <span>a</span>
+    <input type="number" id="distanceMax" placeholder="Hasta" min="0">
+  </div>
+</div>
+ </div>   
+
+    
+  <div style="padding: 3rem 1.5rem 6rem;width: 100%;" id="ListaDeCarreras"></div>
+  
+<div class="modal" id="modalRegistro" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Registro</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="formRegistro">
+          <div class="form-group">
+            <label>Maratón</label>
+            <input type="text" class="form-control" id="fMaraton" readonly>
+          </div>
+          <div class="form-group">
+            <label>RUT</label>
+            <input type="text" class="form-control" id="fId" placeholder="Su RUT">
+          </div>
+          <div class="form-group">
+            <label>Distancia</label>
+            <select class="form-control" id="fDistancia"></select>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  
+
+<script src="js/jquery.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/javascript.js"></script>
+</body>
+
+</html>
