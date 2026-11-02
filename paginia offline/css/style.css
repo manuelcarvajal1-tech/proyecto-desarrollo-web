@@ -8,6 +8,8 @@
   box-sizing: border-box;
 }
 
+[x-cloak] { display: none !important; }
+
 body {
   margin: 0;
   justify-content: center;

@@ -1,0 +1,7 @@
+[
+  { "id": 0, "name": "la talcatón", "place": "talca, Maule", "date": "Apr 20, 2027", "distances": ["42"] },
+  { "id": 1, "name": "vuelta de la muerte", "place": "talca, Maule", "date": "Oct 11, 2026", "distances": ["21", "42"] },
+  { "id": 2, "name": "maratón en Valparaíso", "place": "Valparaíso, Valparaíso", "date": "Nov 1, 2026",  "distances": ["5", "21", "42"] },
+  { "id": 3, "name": "maratón del Bicentenario", "place": "maipú, Metropolitana", "date": "Oct 25, 2026", "distances": ["5", "21"] },
+  { "id": 4, "name": "Carrera por la playa IXV", "place": "Rancagua, O'Higgins", "date": "Sep 27, 2026", "distances": ["10", "25"] }
+]

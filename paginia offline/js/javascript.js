@@ -1,107 +1,84 @@
-const maratones = [
-  {
-    id: 'talca',
-    name: 'la talcatón',
-    place: 'talca, Maule',
-    date: 'Apr 20, 2027',
-    distances: ['42'],
-  },
-  {
-    id: 'talca2',
-    name: 'vuelta de la muerte',
-    place: 'talca, Maule',
-    date: 'Oct 11, 2026',
-    distances: ['21', '42'],
-  },
-  {
-    id: 'Valpa',
-    name: 'maratón en Valparaíso',
-    place: 'Valparaíso, Valparaíso',
-    date: 'Nov 1, 2026',
-    distances: ['5', '21', '42'],
-  },
-  {
-    id: 'maipu',
-    name: 'maratón del Bicentenario',
-    place: 'maipú, Metropolitana',
-    date: 'Oct 25, 2026',
-    distances: ['5', '21'],
-  },
-  {
-    id: 'ohiggins',
-    name: 'Carrera por la playa IXV',
-    place: "Rancagua, O'Higgins",
-    date: 'Sep 27, 2026',
-    distances: ['10', '25'],
-  }
-];
-
-const listEl = document.getElementById('ListaDeCarreras');
-const searchInput = document.getElementById('searchInput');
-const placeFilter = document.getElementById('placeFilter');
-const dateFilter = document.getElementById('dateFilter');
-const distanceMin = document.getElementById('distanceMin');
-const distanceMax = document.getElementById('distanceMax');
-
-function mostrarElementos(){
-  const q = searchInput.value.trim().toLowerCase();
-  const place = placeFilter.value;
-  const min = distanceMin.value ? Number(distanceMin.value) : 0;
-const max = distanceMax.value ? Number(distanceMax.value) : Infinity;
-  const date = dateFilter.value.trim().toLowerCase();
-
-const filtered = maratones.filter(r => {
-    if (q && !r.name.toLowerCase().includes(q) && !r.place.toLowerCase().includes(q)) return false;
-    if (place && !r.place.toLowerCase().includes(place.toLowerCase())) return false;
-
-if (!r.distances.some(d => Number(d) >= min && d <= max)) return false;
-    if (date && !r.date.toLowerCase().includes(date)) return false;
-    return true;
-  });
-
-  listEl.innerHTML = '';
-  
-  filtered.forEach(maraton => {
-  const row = document.createElement('div');
-  row.className = 'race';
-
-  row.innerHTML = `
-    <div class="race-header" data-toggle="collapse" data-target="#detalle-${maraton.id}" style="cursor:pointer;">
-      <span>${maraton.name}</span>
-      <span>${maraton.date}</span>
-      <span class="flecha">▼</span>
-    </div>
-    <div class="collapse" id="detalle-${maraton.id}">
-        <p>Lugar: ${maraton.place}</p>
-        <p>Distancias: ${maraton.distances.map(d => `${d} km`).join(', ')}</p>
-         <button type="button" class="btn-registrar" data-toggle="modal" data-target="#modalRegistro" data-id="${maraton.id}">Registrarse</button>
-    </div>
-  `;
-
-  listEl.appendChild(row);
-});
-
-
-  
-
+//comprobación de rut
+function validarRut(rut) {
+  rut = rut.toUpperCase()
+  return /^\d{7,8}[\dKk]$/.test(rut);
 }
-mostrarElementos();
 
-[searchInput, placeFilter, dateFilter, distanceMin, distanceMax].forEach(el => {
-  el.addEventListener('input', mostrarElementos);
-});
+//codigo antiguo transformado a alpine
+document.addEventListener('alpine:init', () => {
+  Alpine.data('carrerasApp', () => ({
+    // ahora empieza vacío y se llena desde maratones.json
+    maratones: [],
+    cargando: true,
+    error: '',
 
-$('#modalRegistro').on('show.bs.modal', function (event) {
-  const boton = event.relatedTarget;
-  const id = boton.getAttribute('data-id');
+    // filtros
+    q: '', place: '', date: '', min: '', max: '',
 
-  const maraton = maratones.find(m => m.id === id);
+    // interfaz
+    abierto: null,
+    modalAbierto: false,
+    seleccionada: null,
+    rut: '',
+    rutError: '',
+    distanciaElegida: '',
 
-  document.getElementById('fMaraton').value = maraton.name;
+    // Alpine llama a init() automáticamente al arrancar el componente
+    async init() {
+      try {
+        const res = await fetch('data/maratones.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        this.maratones = await res.json();
+      } catch (e) {
+        this.error = 'No se pudieron cargar las carreras (' + e.message + ')';
+        console.error(e);
+      } finally {
+        this.cargando = false;
+      }
+    },
 
-  const selectDistancia = document.getElementById('fDistancia');
-  selectDistancia.innerHTML = maraton.distances
-    .map(d => `<option>${d} km</option>`)
-    .join('');
+    get filtered() {
+      const q = this.q.trim().toLowerCase();
+      const place = this.place.toLowerCase();
+      const date = this.date.trim().toLowerCase();
+      const min = this.min === '' ? 0 : Number(this.min);
+      const max = this.max === '' ? Infinity : Number(this.max);
+
+      return this.maratones.filter(r => {
+        if (q && !r.name.toLowerCase().includes(q) && !r.place.toLowerCase().includes(q)) return false;
+        if (place && !r.place.toLowerCase().includes(place)) return false;
+        if (!r.distances.some(d => Number(d) >= min && Number(d) <= max)) return false;
+        if (date && !r.date.toLowerCase().includes(date)) return false;
+        return true;
+      });
+    },
+
+    toggle(id) {
+      this.abierto = this.abierto === id ? null : id;
+    },
+
+    abrirRegistro(maraton) {
+      this.seleccionada = maraton;
+      this.distanciaElegida = maraton.distances[0];
+      this.rut = '';
+      this.rutError = '';
+      this.modalAbierto = true;
+    },
+
+    enviarRegistro() {
+  if (!validarRut(this.rut)) {
+    this.rutError = 'Escriba el RUT sin puntos ni guion, por ejemplo 123456785.';
+    return;
+  }
+
+  console.log('Registro:', {
+    maraton: this.seleccionada.name,
+    rut: this.rut,
+    distancia: this.distanciaElegida,
+  });
+  alert('Registro enviado: ' + this.seleccionada.name + ' — ' + this.distanciaElegida + ' km');
+  this.modalAbierto = false;
+},
+  }));
 });
 
